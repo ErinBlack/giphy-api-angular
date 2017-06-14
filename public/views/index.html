@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GIPHY API using Angular</title>
+    <script src="vendors/angular.min.js" charset="utf-8"></script>
+    <script src="scripts/client.js" charset="utf-8"></script>
+  </head>
+  <body ng-app="myApp">
+    test text
+    <div ng-controller="GiphyController as gc">
+      <div class="returnGif" >
+        <form ng-submit="gc.searchGif()">
+          <input type="text" ng-model="gc.search">
+        </form>
+        <button type="button" ng-click="gc.startUpFunction()" name="button">Random</button>
+        <img  ng-src="{{gc.gifs.image_url}}" alt="">
+      </div>
+      <img ng-repeat = "img in gc.returnSearch" ng-src="{{img.images.downsized_medium.url}}">
+    </div>
+  </body>
+</html>
