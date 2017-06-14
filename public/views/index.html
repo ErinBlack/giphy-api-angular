@@ -5,18 +5,28 @@
     <title>GIPHY API using Angular</title>
     <script src="vendors/angular.min.js" charset="utf-8"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
+    <script src="scripts/services/gif.service.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
   </head>
   <body ng-app="myApp">
-    test text
-    <div ng-controller="GiphyController as gc">
+    <header class="jumbotron container-fluid" >
+      <h1>GIF Assignment</h1>
+    </header>
+    <div ng-controller="GiphyController as gc" class="container">
       <div class="returnGif" >
-        <form ng-submit="gc.searchGif()">
+        <form ng-submit="gc.searchForGif(gc.search)">
+          <p>Search for the Gif You Want!</p>
           <input type="text" ng-model="gc.search">
         </form>
-        <button type="button" ng-click="gc.startUpFunction()" name="button">Random</button>
-        <img  ng-src="{{gc.gifs.image_url}}" alt="">
+        <button class="btn btn-info" type="button" ng-click="gc.newGet()" name="button">Random</button>
+        <img  ng-src="{{gc.gifs.image_url}}" >
       </div>
-      <img ng-repeat = "img in gc.returnSearch" ng-src="{{img.images.downsized_medium.url}}">
+      <div class="row">
+        <div class="col-md-4" ng-repeat = "img in gc.gif">
+          <img  class="img-thumbnail" ng-src="{{img.images.downsized_medium.url}}">
+        </div>
+      </div>
     </div>
   </body>
 </html>

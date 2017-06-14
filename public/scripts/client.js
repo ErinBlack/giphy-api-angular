@@ -2,24 +2,34 @@ console.log('js');
 
 var myApp = angular.module('myApp', []);
 
-myApp.controller('GiphyController', function($http){
+myApp.controller('GiphyController', function(GifService){
   console.log('GC');
   var vm = this;
-  vm.startUpFunction = function(){
-    console.log('inside the startup function');
-    $http.get('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=').then(function(response){
-      console.log('back from the server with: ', response);
-      vm.gifs = response.data.data;
-    });
-  };
 
 
-  vm.searchGif = function(){
-    var search = vm.search;
-    console.log(search);
-    var searchURL = 'http://api.giphy.com/v1/gifs/search?q=' + search + "&api_key=dc6zaTOxFJmzC";
-    $http.get(searchURL).then(function(response){
-      vm.returnSearch = response.data.data;
-    }); //end get requets
-  }; // end searchGIf
-});
+//Get random single gif
+  vm.newGet = function(){
+  GifService.startUpFunction().then(function(backWithGif){
+    console.log('back with Gif', backWithGif);
+    vm.gifs = backWithGif;
+  }); //end then
+  }; //end newGet
+  // 
+  // vm.startUpFunction = GifService.startUpFunction;
+
+
+//Get searched gifs
+  vm.searchForGif = function(search){
+
+    GifService.searchGif(search).then(function(gifsSearched){
+      console.log('gifsSearched', gifsSearched);
+      vm.gif = gifsSearched;
+      vm.searchGif = GifService;
+    }); //end then
+
+
+  }; //end searchGif
+
+
+
+}); // endcontroller
